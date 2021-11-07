@@ -240,4 +240,24 @@ router.get("/decoderawtransaction/:hex", (req, res) => {
   request(options, callback);
 });
 
+router.get("/sendrawtransaction/:serializedtransaction", (req, res) => {
+  var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"sendrawtransaction","params":["${
+    req.params.serializedtransaction
+  }"]}`;
+  var options = {
+    url: `http://${USER}:${PASS}@127.0.0.1:8332/`,
+    method: "POST",
+    headers: headers,
+    body: dataString
+  };
+
+  callback = (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      const data = JSON.parse(body);
+      res.send(data);
+    }
+  };
+  request(options, callback);
+});
+
 module.exports = router;
