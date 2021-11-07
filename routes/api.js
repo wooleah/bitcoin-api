@@ -19,6 +19,7 @@ router.get("/getblockcount", (req, res) => {
   var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"getblockcount","params":[]}`;
   console.log(USER)
   console.log(PASS)
+  console.log(RPC_PORT)
   var options = {
     url: `http://${USER}:${PASS}@127.0.0.1:${RPC_PORT}/`,
     method: "POST",
