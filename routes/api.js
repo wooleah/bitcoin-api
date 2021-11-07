@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 const bitcore = require('bitcore-lib');
+const CryptoAccount = require("send-crypto");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -263,18 +264,31 @@ router.get("/sendrawtransaction/:serializedtransaction", (req, res) => {
   request(options, callback);
 });
 
-router.get("/sendrawtransactiontest", (req, res) => {
+router.get("/sendrawtransactiontest", async (req, res) => {
   try {
-    // var privateKey = new bitcore.PrivateKey('a8f58765af5a90bc66064b7b985bb6cc4b0850e9bc771c51e70f2fb1e800fa68');
-    // var utxo = {
-    //   "txId" : "115e8f72f39fad874cfab0deed11a80f24f967a84079fb56ddf53ea02e308986",
-    //   "outputIndex" : 0,
-    //   "address" : "17XBj6iFEsf8kzDMGQk5ghZipxX49VXuaV",
-    //   "script" : "76a91447862fe165e6121af80d5dde1ecb478ed170565b88ac",
-    //   "satoshis" : 50000
-    // };
+    var privateKey = new bitcore.PrivateKey('a8f58765af5a90bc66064b7b985bb6cc4b0850e9bc771c51e70f2fb1e800fa68');
+    var utxo = {
+      "txId" : "115e8f72f39fad874cfab0deed11a80f24f967a84079fb56ddf53ea02e308986",
+      "outputIndex" : 0,
+      "address" : "17XBj6iFEsf8kzDMGQk5ghZipxX49VXuaV",
+      "script" : "76a91447862fe165e6121af80d5dde1ecb478ed170565b88ac",
+      "satoshis" : 50000
+    };
   
-    console.log("test")
+    console.log(privateKey)
+
+    const account = new CryptoAccount(process.env.BTC_PRIVATE_KEY, {
+        network: "testnet",
+    });
+    console.log(await account.address("BTC"));
+    console.log(await account.getBalance("BTC"));
+    
+    const account2 = new CryptoAccount("71040770847d181850a9817db94c6e777f9c0a22ba9016be4c1984012b2720b0")
+    const addr2 = await account2.address("BTC");
+    console.log(addr2);
+    console.log(await account2.getBalance("BTC"));
+
+    await account.send(addr2, 0.0001, "BTC");
   } catch (err) {
     console.log(err);
   }
