@@ -283,7 +283,9 @@ router.get("/sendrawtransactiontest", async (req, res) => {
     console.log(await account.address("BTC"));
     console.log(await account.getBalance("BTC"));
     
-    const account2 = new CryptoAccount("71040770847d181850a9817db94c6e777f9c0a22ba9016be4c1984012b2720b0")
+    const account2 = new CryptoAccount("71040770847d181850a9817db94c6e777f9c0a22ba9016be4c1984012b2720b0", {
+      network: "testnet",
+    })
     const addr2 = await account2.address("BTC");
     console.log(addr2);
     console.log(await account2.getBalance("BTC"));
