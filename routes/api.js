@@ -5,8 +5,10 @@ var request = require("request");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const USER = process.env.RPC_USER;
-const PASS = process.env.RPC_PASSWORD;
+// const USER = process.env.RPC_USER;
+// const PASS = process.env.RPC_PASSWORD;
+const USER = "zgap";
+const PASS = "zgappassword";
 
 const headers = {
   "content-type": "text/plain;"
