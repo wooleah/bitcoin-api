@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-var request = require("request");
+const request = require("request");
+const bitcore = require('bitcore-lib');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -243,6 +244,35 @@ router.get("/decoderawtransaction/:hex", (req, res) => {
 });
 
 router.get("/sendrawtransaction/:serializedtransaction", (req, res) => {
+  var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"sendrawtransaction","params":["${
+    req.params.serializedtransaction
+  }"]}`;
+  var options = {
+    url: `http://${USER}:${PASS}@127.0.0.1:${RPC_PORT}/`,
+    method: "POST",
+    headers: headers,
+    body: dataString
+  };
+
+  callback = (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      const data = JSON.parse(body);
+      res.send(data);
+    }
+  };
+  request(options, callback);
+});
+
+router.get("/sendrawtransactiontest", (req, res) => {
+  var privateKey = new bitcore.PrivateKey('a8f58765af5a90bc66064b7b985bb6cc4b0850e9bc771c51e70f2fb1e800fa68');
+  var utxo = {
+    "txId" : "115e8f72f39fad874cfab0deed11a80f24f967a84079fb56ddf53ea02e308986",
+    "outputIndex" : 0,
+    "address" : "17XBj6iFEsf8kzDMGQk5ghZipxX49VXuaV",
+    "script" : "76a91447862fe165e6121af80d5dde1ecb478ed170565b88ac",
+    "satoshis" : 50000
+  };
+
   var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"sendrawtransaction","params":["${
     req.params.serializedtransaction
   }"]}`;
