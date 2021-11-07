@@ -265,16 +265,16 @@ router.get("/sendrawtransaction/:serializedtransaction", (req, res) => {
 
 router.get("/sendrawtransactiontest", (req, res) => {
   try {
-    var privateKey = new bitcore.PrivateKey('a8f58765af5a90bc66064b7b985bb6cc4b0850e9bc771c51e70f2fb1e800fa68');
-    var utxo = {
-      "txId" : "115e8f72f39fad874cfab0deed11a80f24f967a84079fb56ddf53ea02e308986",
-      "outputIndex" : 0,
-      "address" : "17XBj6iFEsf8kzDMGQk5ghZipxX49VXuaV",
-      "script" : "76a91447862fe165e6121af80d5dde1ecb478ed170565b88ac",
-      "satoshis" : 50000
-    };
+    // var privateKey = new bitcore.PrivateKey('a8f58765af5a90bc66064b7b985bb6cc4b0850e9bc771c51e70f2fb1e800fa68');
+    // var utxo = {
+    //   "txId" : "115e8f72f39fad874cfab0deed11a80f24f967a84079fb56ddf53ea02e308986",
+    //   "outputIndex" : 0,
+    //   "address" : "17XBj6iFEsf8kzDMGQk5ghZipxX49VXuaV",
+    //   "script" : "76a91447862fe165e6121af80d5dde1ecb478ed170565b88ac",
+    //   "satoshis" : 50000
+    // };
   
-    console.log(privateKey)
+    console.log("test")
   } catch (err) {
     console.log(err);
   }
