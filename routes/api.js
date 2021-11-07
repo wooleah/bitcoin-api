@@ -16,6 +16,8 @@ router.get("/test", (req, res) => res.json({ msg: "backend works" }));
 
 router.get("/getblockcount", (req, res) => {
   var dataString = `{"jsonrpc":"1.0","id":"curltext","method":"getblockcount","params":[]}`;
+  console.log(USER)
+  console.log(PASS)
   var options = {
     url: `http://${USER}:${PASS}@127.0.0.1:8332/`,
     method: "POST",
